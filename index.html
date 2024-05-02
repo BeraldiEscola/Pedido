@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>by: Gabriel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('C:/Users/gabri/Documents/pedido/fundo.jpg');
+            /* Substitua 'caminho/para/sua/imagem.jpg' pelo caminho da sua imagem de fundo */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #b1b1b1;
+            margin-top: 100px;
+            font-size: 46px;
+        }
+
+        .pedido {
+            margin-bottom: 60px;
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .botao {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: #a11b5e;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: transform 0.3s;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            position: absolute;
+        }
+
+        .botao:hover {
+            transform: scale(1.1);
+        }
+
+        .animacao {
+            display: none;
+            margin-top: 50px;
+            font-size: 32px;
+            color: #2a034d;
+            animation-name: pulsar;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes pulsar {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Estilo para o h2 */
+        .h2-container {
+            display: none; /* Inicialmente oculto */
+            background-color: #a20783; /* Cor de fundo vermelha */
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            
+        }
+
+        .h2-container h2 {
+            color: #270032; /* Cor do texto branco */
+        }
+    </style>
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            var simButton = document.getElementById('sim');
+            var naoButton = document.getElementById('nao');
+            var animacaoDiv = document.getElementById('animacao');
+            var h2Container = document.querySelector('.h2-container');
+            var isTouchDevice = false;
+
+            // Verifica se o dispositivo é um dispositivo de toque (celular ou tablet)
+            if ('ontouchstart' in window || navigator.maxTouchPoints) {
+                isTouchDevice = true;
+            }
+
+            simButton.addEventListener('click', function () {
+                simButton.style.display = 'none';
+                naoButton.style.display = 'none';
+                animacaoDiv.style.display = 'block';
+                animacaoDiv.classList.add('animacao');
+
+                // Exibe o h2 quando a animação é iniciada
+                h2Container.style.display = 'inline-block'; // Alterado para inline-block
+
+                // Abrir o vídeo do YouTube após 3 segundos
+                setTimeout(function () {
+                    window.location.href = 'https://youtu.be/yMwi16KYqFo?si=bTCXvOH1Ouo2-2E1'; // Substitua VIDEO_ID pelo ID do vídeo desejado
+                }, 3000);
+            });
+
+            if (!isTouchDevice) {
+                var maxX = window.innerWidth - naoButton.offsetWidth;
+                var maxY = window.innerHeight - naoButton.offsetHeight;
+
+                document.addEventListener('mousemove', function (e) {
+                    var mouseX = e.clientX;
+                    var mouseY = e.clientY;
+
+                    var naoButtonRect = naoButton.getBoundingClientRect();
+                    var naoButtonX = naoButtonRect.left + naoButtonRect.width / 2;
+                    var naoButtonY = naoButtonRect.top + naoButtonRect.height / 2;
+
+                    var distance = Math.sqrt(Math.pow(mouseX - naoButtonX, 2) + Math.pow(mouseY - naoButtonY, 2));
+
+                    if (distance < 100) {
+                        var newX = Math.floor(Math.random() * (maxX - naoButton.offsetWidth));
+                        var newY = Math.floor(Math.random() * (maxY - naoButton.offsetHeight));
+
+                        naoButton.style.left = newX + 'px';
+                        naoButton.style.top = newY + 'px';
+                    }
+                });
+            } else {
+                var mc = new Hammer(naoButton);
+                var startX, startY;
+                var buttonRect = naoButton.getBoundingClientRect();
+
+                mc.on("panstart", function (e) {
+                    startX = buttonRect.left;
+                    startY = buttonRect.top;
+                });
+
+                mc.on("panmove", function (e) {
+                    var newX = startX + e.deltaX;
+                    var newY = startY + e.deltaY;
+
+                    naoButton.style.left = newX + 'px';
+                    naoButton.style.top = newY + 'px';
+                });
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div class="pedido">
+        <h1>Aceita namorar comigo Yasmim?</h1>
+    </div>
+    <div class="botoes">
+        <button id="sim" class="botao">Sim</button>
+        <button id="nao" class="botao">Não</button>
+    </div>
+    <!-- Container para o h2 com a caixa vermelha -->
+    <div id="animacao" class="animacao">
+        <b></b>Obrigado amor! Agora você é MINHA!!!!</b>
+    </div>
+    <!-- Container para o h2 com a caixa vermelha -->
+    <div class="h2-container">
+        <h2>Te amo, amor da minha vida &lt;3 </h2>
+    </div>
+</body>
+
+</html>
